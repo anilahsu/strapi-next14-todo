@@ -14,6 +14,21 @@ export const GETQUERY = gql`
   }
 `;
 
+export const GETQUERY2 = gql`
+  query Todo($todoText: String) {
+    todos(filters: {todoText: {eq: $todoText}}) {
+      data {
+        id
+        attributes {
+          todoText
+          createdAt
+        }
+      }
+    }
+  }
+`;
+
+//-----------------mutations-------------------
 export const ADDMUT = gql`
   mutation createTodo($todoText: String) {
     createTodo(data: { todoText: $todoText }) {
@@ -28,6 +43,7 @@ export const ADDMUT = gql`
   }
 `;
 
+//-----------------mutations-------------------
 export const UPDATEMUT = gql`
   mutation updateTodo($id: ID!, $todoText: String!) {
     updateTodo(id: $id, data: { todoText: $todoText }) {
@@ -42,6 +58,7 @@ export const UPDATEMUT = gql`
   }
 `;
 
+//-----------------mutations-------------------
 export const DELETEMUT = gql`
   mutation deleteTodo($id: ID!) {
     deleteTodo(id: $id) {
