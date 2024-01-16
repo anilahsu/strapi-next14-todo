@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "case_study_entries",
+  "info": {
+    "singularName": "case-study-entry",
+    "pluralName": "case-study-entries",
+    "displayName": "CaseStudyEntry",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Key": {
+      "type": "uid"
+    },
+    "Path": {
+      "type": "string"
+    },
+    "Company_name": {
+      "type": "string"
+    },
+    "Money_name": {
+      "type": "string"
+    },
+    "CoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Title": {
+      "type": "string"
+    },
+    "MoneyImage": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "URL": {
+      "type": "string"
+    },
+    "Induction": {
+      "type": "richtext"
+    },
+    "AppealPointList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study.appeal-point"
+    },
+    "InterviewBlock": {
+      "type": "component",
+      "repeatable": false,
+      "component": "case-study.interview"
+    },
+    "case_study_sub_categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::case-study-sub-category.case-study-sub-category"
+    }
+  }
+}
