@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_case_study_q_and_as",
+  "info": {
+    "displayName": "Q&A",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "richtext"
+    }
+  }
+}
