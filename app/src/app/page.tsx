@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import AddTodo from "@/app/containers/AddTodo";
 import TodoList from "@/app/containers/TodoList";
 import { useQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { ADDMUT, DELETEMUT, GETQUERY, UPDATEMUT } from "@/query/schema";
+import { ADDMUT, DELETEMUT, GETQUERY, GETQUERY2, UPDATEMUT } from "@/query/schema";
 import { useMutation } from "@apollo/client";
 
 export default function Home() {
@@ -13,14 +13,21 @@ export default function Home() {
   const [updateTodo] = useMutation(UPDATEMUT);
   const [deleteMUT] = useMutation(DELETEMUT);
 
-  const { loading, error, data } = useQuery(GETQUERY, {
+  const todoText = "snowboarding";
+
+  const { loading, error, data } = useQuery(TEST, {
     fetchPolicy: "no-cache",
+    variables: {
+      // todoText, //Passing the todo text
+    },
   }); 
+  console.log("data", data);
 
   useEffect(() => {
     setTodos(data?.todos?.data);
   }, [data]);
 
+  // -------------------------------------------------------------------------------------------------------------
   const addTodo = async (todoText: string) => {
     await createTodo({
       variables: {
@@ -30,7 +37,11 @@ export default function Home() {
       setTodos([...todos, data?.createTodo?.data] as any); //Adding the new todo to the list
     });
   };
-  
+
+  // another way to add todo  
+  const [addTodo2] = useMutation(ADDMUT)
+
+  // -------------------------------------------------------------------------------------------------------------
   const editTodoItem = async (todo: any) => {
     const newTodoText = prompt("Enter new todo text or description:");
     if (newTodoText != null) {
@@ -52,6 +63,7 @@ export default function Home() {
       });
     } 
    };
+  // -------------------------------------------------------------------------------------------------------------
 
   const deleteTodoItem = async (todo: any) => {
     if (confirm("Do you really want to delete this item?")) {
@@ -70,7 +82,7 @@ export default function Home() {
   return (
     <div>
       <main className="main">
-        <AddTodo addTodo={addTodo} />
+        <AddTodo addTodo={addTodo} addTodo2={addTodo2} />
         <TodoList
           todos={todos}
           deleteTodoItem={deleteTodoItem}

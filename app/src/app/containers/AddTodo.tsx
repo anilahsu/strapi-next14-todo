@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-function AddTodo({ addTodo }: { addTodo: FunctionStringCallback }) {
+function AddTodo({ addTodo, addTodo2 }: { addTodo: FunctionStringCallback, addTodo2: any }) {
   const [todo, setTodo] = useState<string>("");
   return (
     <>
@@ -17,6 +17,8 @@ function AddTodo({ addTodo }: { addTodo: FunctionStringCallback }) {
           onKeyDown={(e) => {
             if (e.code === "Enter") {
               addTodo(todo);
+              // another way to add todo  
+              // addTodo2({ variables: { todoText: todo } })
               setTodo("");
             }
           }}
@@ -27,6 +29,8 @@ function AddTodo({ addTodo }: { addTodo: FunctionStringCallback }) {
           value="Add Todo"
           onClick={() => {
             addTodo(todo);
+            // another way to add todo  
+            // addTodo2({ variables: { todoText: todo } })
             setTodo("");
           }}
         />
