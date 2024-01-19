@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_appeal_appeal_points",
+  "info": {
+    "displayName": "AppealPoint",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "AppealTitle": {
+      "type": "string"
+    },
+    "AppealDesctiption": {
+      "type": "text"
+    }
+  }
+}

@@ -362,28 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiTodoTodo extends Schema.CollectionType {
-  collectionName: 'todos';
-  info: {
-    singularName: 'todo';
-    pluralName: 'todos';
-    displayName: 'todo';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    todoText: Attribute.String & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::todo.todo', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::todo.todo', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -790,6 +768,154 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCaseStudyCategoryCaseStudyCategory
+  extends Schema.CollectionType {
+  collectionName: 'case_study_categories';
+  info: {
+    singularName: 'case-study-category';
+    pluralName: 'case-study-categories';
+    displayName: 'CaseStudyCategory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Key: Attribute.UID;
+    Path: Attribute.String;
+    Name: Attribute.String;
+    Other: Attribute.Integer;
+    case_study_sub_categories: Attribute.Relation<
+      'api::case-study-category.case-study-category',
+      'oneToMany',
+      'api::case-study-sub-category.case-study-sub-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::case-study-category.case-study-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::case-study-category.case-study-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCaseStudyEntryCaseStudyEntry extends Schema.CollectionType {
+  collectionName: 'case_study_entries';
+  info: {
+    singularName: 'case-study-entry';
+    pluralName: 'case-study-entries';
+    displayName: 'CaseStudyEntry';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Key: Attribute.UID;
+    Path: Attribute.String;
+    Company_name: Attribute.String;
+    Money_name: Attribute.String;
+    CoverImage: Attribute.Media;
+    Title: Attribute.String;
+    MoneyImage: Attribute.Media;
+    URL: Attribute.String;
+    Induction: Attribute.RichText;
+    AppealPointList: Attribute.Component<'case-study.appeal-point', true>;
+    InterviewBlock: Attribute.Component<'case-study.interview'>;
+    case_study_sub_categories: Attribute.Relation<
+      'api::case-study-entry.case-study-entry',
+      'oneToMany',
+      'api::case-study-sub-category.case-study-sub-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::case-study-entry.case-study-entry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::case-study-entry.case-study-entry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCaseStudySubCategoryCaseStudySubCategory
+  extends Schema.CollectionType {
+  collectionName: 'case_study_sub_categories';
+  info: {
+    singularName: 'case-study-sub-category';
+    pluralName: 'case-study-sub-categories';
+    displayName: 'CaseStudySubCategory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Key: Attribute.UID;
+    Path: Attribute.String;
+    Name: Attribute.String;
+    Other: Attribute.Integer;
+    case_study_category: Attribute.Relation<
+      'api::case-study-sub-category.case-study-sub-category',
+      'manyToOne',
+      'api::case-study-category.case-study-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::case-study-sub-category.case-study-sub-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::case-study-sub-category.case-study-sub-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTodoTodo extends Schema.CollectionType {
+  collectionName: 'todos';
+  info: {
+    singularName: 'todo';
+    pluralName: 'todos';
+    displayName: 'todo';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    todoText: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::todo.todo', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::todo.todo', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -800,7 +926,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::todo.todo': ApiTodoTodo;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -809,6 +934,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::case-study-category.case-study-category': ApiCaseStudyCategoryCaseStudyCategory;
+      'api::case-study-entry.case-study-entry': ApiCaseStudyEntryCaseStudyEntry;
+      'api::case-study-sub-category.case-study-sub-category': ApiCaseStudySubCategoryCaseStudySubCategory;
+      'api::todo.todo': ApiTodoTodo;
     }
   }
 }
